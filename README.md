@@ -1,5 +1,8 @@
 
 experiments:
+#2
+does not work in simulator, it doesn't allow you to schedule background
+processes, a phisical device is needed
 
 #1 background thread [2f8cee0888812db95d1173c8622baa54cc04d757](https://github.com/vcosquinexthink/ios-background-app/commit/2f8cee0888812db95d1173c8622baa54cc04d757)
 

@@ -9,7 +9,7 @@ import Foundation
 import CoreLocation
 
 class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate {
-    
+
     let lm = CLLocationManager()
     
     @Published var location: CLLocationCoordinate2D?
@@ -25,7 +25,7 @@ class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate {
                 var i = 0
                 while true {
                     try await Task.sleep(nanoseconds: UInt64(5 * Double(NSEC_PER_SEC)))
-                    print("backgroud task executed...\(i)")
+                    print("[thread] backgroud task executed...\(i)")
                     i+=1
                     self.lm.requestLocation()
                 }
@@ -34,20 +34,19 @@ class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate {
     }
     
     func requestLocation() {
-        print("requesting location...")
+        print("[LocationManager] requesting location...")
         isLoading = true
         lm.requestLocation()
     }
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        print("didUpdateLocations...")
         location = locations.first?.coordinate
         isLoading = false
-        print("location obtained \(location as Optional)")
+        print("[LocationManager] location obtained \(location as Optional)")
     }
     
     func locationManager(_ manager: CLLocationManager, didFailWithError error: any Error) {
-        print("didUpdateLocations...", error)
+        print("[LocationManager] didUpdateLocations...", error)
         isLoading = false
     }
 }
